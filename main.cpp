@@ -32,10 +32,15 @@ int main()
             case 'D':
             case 'd':
                 play.moveright();
-                break;           
+                break;          
+            case 'R':
+            case 'r':
+                play.restart();
+                break;
             default:
                 break;
         }
+        play.print_score();
         play.print_map();
         cout << endl << endl;
         if(play.gameover() == true)

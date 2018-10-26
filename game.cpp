@@ -1,8 +1,11 @@
 #include"game.h"
 #include<iomanip>
 using namespace std;
-//將map和check_map歸零
 Game::Game()
+{
+}
+//將map和check_map歸零，並隨機找2個位置給值
+void Game::init_map()
 {
     for(int i = 0; i < 4; i++)
         for(int j = 0; j < 4; j++)
@@ -10,10 +13,7 @@ Game::Game()
             map[i][j] = 0;
             check_map[i][j] = 0;
         }
-}
-//隨機找2個位置給值
-void Game::init_map()
-{
+    score = 0;
     srand(time(NULL));
     int posx = rand()%4;    
     int posy = rand()%4;
@@ -46,6 +46,12 @@ void Game::print_map()
         cout << "|" << endl ;
         cout << "|----|----|----|----|" << endl;
     }
+    return;
+}
+//印出score
+void Game::print_score()
+{
+    cout << "SCORE : " << score << endl;
     return;
 }
 //複製map的值給check_map
@@ -217,6 +223,7 @@ bool Game::add_up()
             if(map[j][i] == map[j+1][i])        //若發現該元素與下面的元素相同則相加，並將下面的元素歸0
             {
                 map[j][i] += map[j][i];
+                score += map[j][i];
                 map[j+1][i] = 0;
                 if(j == 2)                  //最多只會加到row的第3個元素
                     break;
@@ -245,6 +252,7 @@ bool Game::add_down()
             if(map[j][i] == map[j-1][i])        //若發現該元素與上面的元素相同則相加，並將上面的元素歸0
             {
                 map[j][i] += map[j][i];
+                score += map[j][i];
                 map[j-1][i] = 0;
                 if(j == 1)                  //最多只會加到row的第2個元素
                     break;
@@ -273,6 +281,7 @@ bool Game::add_left()
             if(map[i][j] == map[i][j+1])        //若發現該元素與右邊的元素相同則相加，並將右手邊的元素歸0
             {
                 map[i][j] += map[i][j];
+                score += map[i][j];
                 map[i][j+1] = 0;
                 if(j == 2)                  //最多只會加到column的第3個元素
                     break;
@@ -301,6 +310,7 @@ bool Game::add_right()
             if(map[i][j] == map[i][j-1])        //若發現該元素與左邊的元素相同則相加，並將左手邊的元素歸0
             {
                 map[i][j] += map[i][j];
+                score += map[i][j];
                 map[i][j-1] = 0;
                 if(j == 1)                  //最多只會加到column的第2個元素
                     break;
@@ -338,4 +348,10 @@ bool Game::gameover()
                 return false;
         }
     return true;                        //上述判斷皆通過代表遊戲結束
+}
+//重新遊戲
+void Game::restart()
+{
+    init_map();
+    return;
 }

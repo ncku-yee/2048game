@@ -10,10 +10,12 @@ class Game
         Game();
 //        ~Game();
         int map[4][4];
+        int score = 0;
         int check_map[4][4];
         void copy_map();
         void init_map();
         void print_map();
+        void print_score();
         void moveup();
         void movedown();
         void moveleft();
@@ -24,5 +26,5 @@ class Game
         bool add_right();
         void pop_num();
         bool gameover();
-
+        void restart();
 };
